@@ -1,0 +1,32 @@
+{
+    "id": "89DF613D",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1606996800101.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "expression": "homi.r.solved.couples",
+        "caption": "homi.r.solved.couples",
+        "totalObservations": 3122,
+        "displayedObservations": 3122,
+        "variables": 24,
+        "cacheKey": "5DC413A1",
+        "object": "homi.r.solved.couples",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=homi.r.solved.couples&cache_key=5DC413A1&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1606996599,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1606996800101,
+    "read_only": false,
+    "read_only_alternatives": []
+}

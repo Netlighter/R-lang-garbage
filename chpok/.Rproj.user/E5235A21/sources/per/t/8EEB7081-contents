@@ -1,0 +1,157 @@
+---
+title: "word"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,message=FALSE, warning=FALSE, echo=FALSE}
+library(dplyr)
+library(data.table)
+
+df <- read.csv("crime.csv", sep=";")
+names(df) <- tolower(names(df))
+
+df_clear <- df[complete.cases(df),]
+df_clear <- unique(df_clear)
+homi.r <- df_clear
+homi.r.solved <- filter(homi.r, homi.r$crime.solved=="Yes")
+
+
+procentas.solved <- nrow(homi.r.solved) / nrow(homi.r) * 100
+
+
+homi.r.solved.friends <- filter(homi.r.solved, homi.r.solved$relationship=="Friend")
+
+
+homi.r.solved.couples <- filter(homi.r.solved, 
+                                (relationship=="Boyfriend" | relationship=="Girlfriend") & 
+                                  perpetrator.age>=18 & 
+                                  victim.age>=18)
+
+library(ggplot2)
+
+raceplot  <-
+  homi.r.solved.couples %>%
+  group_by(perpetrator.race) %>%
+  summarise(Summary = n())
+
+crime.type.plot <-
+  homi.r.solved.couples %>%
+  group_by(crime.type) %>%
+  summarise(Summary = n())
+
+weapon.plot <-
+  homi.r.solved.couples %>%
+  group_by(weapon) %>%
+  summarise(Summary = n())
+
+weapon.plot<-weapon.plot[order(-weapon.plot$Summary),]
+weapon.plot<-top_n(weapon.plot, 10)
+
+year.state.plot <-
+  homi.r.solved.couples %>%
+  group_by(year, state) %>%
+  summarise(Summary = n())
+
+
+year.state.plot<-top_n(year.state.plot, 10)
+
+# victim-perpetrator
+
+age.plot <-
+  homi.r.solved.couples %>%
+  group_by(victim.age, perpetrator.age) %>%
+  summarise()
+
+#plot view on 121 line
+
+age.plot<-filter(age.plot, victim.age<=100)
+
+age.plot<-age.plot[order(age.plot$victim.age, age.plot$perpetrator.age),]
+
+age.plot$correlation<-abs(age.plot$perpetrator.age-age.plot$victim.age)
+
+age.cor.plot <-
+  age.plot %>%
+  group_by(correlation) %>%
+  summarise(Summary = n())
+
+state.plot <-
+  homi.r.solved.couples %>%
+  group_by(state) %>%
+  summarise(Summary = n())
+
+state.plot<-state.plot[order(-state.plot$Summary),]
+state.plot<-top_n(state.plot, 5)
+
+```
+
+## Solved crimes
+```{r Solved Crimes, message=FALSE, warning=FALSE, echo=FALSE}
+library(knitr)
+kable(homi.r.solved[1:10, c(11, 12,13,16,17,24)], caption = "Table 1")
+```
+#### *This is a* **`r format(round(procentas.solved, 1), nsmall = 2)`%** *of all crimes*
+   
+
+## Solved crimes for people which was friends
+```{r Solved Crimes Friends, message=FALSE, warning=FALSE, echo=FALSE}
+
+kable(homi.r.solved.friends[1:10, c(12,13,16,17,18, 20)], caption = "Table 2")
+```
+   
+
+## Solved crimes for people which was in relations
+```{r Solved Crimes Couples, message=FALSE, warning=FALSE, echo=FALSE}
+
+kable(homi.r.solved.couples[1:10, c(12,13,16,17,18, 20)], caption = "Table 3")
+```
+   
+## Race-specified plot
+```{r Solved Crimes Race Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(raceplot, aes(x=perpetrator.race, y=Summary))+geom_bar(stat = "Summary", width = 0.5)+theme(axis.text.x = element_text(angle = 15, hjust=1))
+```
+
+## Type-specified plot
+```{r Solved Crimes Type Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(crime.type.plot, aes(x=crime.type, y=Summary))+geom_bar(stat = "Summary", width = 0.3)
+```
+
+## Weapon-specified plot (TOP10)
+```{r Solved Crimes Weapon Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(weapon.plot, aes(x=reorder(weapon, -Summary), y=Summary))+geom_bar(stat = "Summary", width = 0.7)+theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+## Year/State-specified plot
+```{r Solved Crimes Year Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(year.state.plot, aes(x=year, y=state))+geom_raster(aes(fill = Summary), hjust=0.3, vjust=0.1, interpolate=FALSE)
+```
+
+## Age-specified plot (jitter)
+```{r Solved Crimes Age Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(age.plot, aes(x=victim.age, y=perpetrator.age))+geom_jitter(varwidth = TRUE)
+```
+
+## Age-specified plot (gisto)
+```{r Solved Crimes Age2 Plot, message=FALSE, warning=FALSE, echo=FALSE}
+library(ggpubr)
+left<-ggplot(age.plot, aes(x=victim.age))+geom_histogram(binwidth = 3)
+right<-ggplot(age.plot, aes(x=perpetrator.age))+geom_histogram(binwidth = 3)
+ggarrange(left, right)
+```
+
+## Age-specified plot (correlation of age difference)
+```{r Solved Crimes Age3 Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(age.cor.plot, aes(x=correlation, y=Summary, fill=factor(correlation)))+geom_bar(stat = "Summary", width = 0.8)
+```
+
+## State-specified plot (TOP5)
+```{r Solved Crimes State Plot, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(state.plot, aes(x=state, y=Summary, fill=factor(state)))+geom_bar(stat = "Summary", width = 0.8)
+```

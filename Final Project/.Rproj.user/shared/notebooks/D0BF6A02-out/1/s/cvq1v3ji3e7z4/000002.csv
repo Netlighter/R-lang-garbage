@@ -1,0 +1,7 @@
+"0","top.city  <-"
+"0","  data %>%"
+"0","  group_by(Incoming = ST.Priimtuju.skaicius) %>%"
+"0","  summarise(City = ST.Institucijos.savivaldybe)"
+"0",""
+"0","top.city <- top.city[order(-top.city$Incoming),]"
+"0","top.city <- top.city[1:10,]"

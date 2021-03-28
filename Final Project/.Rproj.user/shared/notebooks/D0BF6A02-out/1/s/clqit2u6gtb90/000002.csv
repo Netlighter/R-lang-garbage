@@ -1,0 +1,6 @@
+"0","data <- read.csv(""data.csv"", sep = ""\t"", encoding = ""UTF-8"")"
+"0",""
+"0","library(dplyr)"
+"0","library(ggplot2)"
+"0","library(knitr)"
+"0",""

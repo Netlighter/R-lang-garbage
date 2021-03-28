@@ -1,0 +1,32 @@
+{
+    "id": "BDCB947F",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1608358129346.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "top.city",
+        "caption": "top.city",
+        "totalObservations": "1037",
+        "displayedObservations": "1037",
+        "variables": "2",
+        "cacheKey": "0A969D69",
+        "object": "top.city",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=top.city&cache_key=0A969D69&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1608127547,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1608358129346,
+    "read_only": false,
+    "read_only_alternatives": []
+}

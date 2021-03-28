@@ -1,0 +1,79 @@
+---
+title: "Main"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE}
+data <- read.csv("data.csv", sep = "\t", encoding = "UTF-8")
+
+library(dplyr)
+library(ggplot2)
+library(knitr)
+
+```
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE}
+
+top.univ  <-
+  data %>%
+  group_by(Incoming = ST.Priimtuju.skaicius) %>%
+  summarise(Name = ST.Institucijos.pavadinimas)
+top.univ <- top_n(top.univ, 10,)
+top.univ <- top.univ[order(-top.univ$Incoming),]
+
+top.univ <- top.univ[1:10,]
+
+kable(top.univ, caption = "Top 10 Universities by Incoming on 2012-2021")
+```
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE}
+top.city  <-
+  data %>%
+  group_by(Incoming = ST.Priimtuju.skaicius) %>%
+  summarise(City = ST.Institucijos.savivaldybe)
+
+
+top.city <- top.city[order(-top.city$Incoming),]
+top.city <- top.city[!duplicated(top.city[,c('City')]),]
+
+top.city <- top.city[1:3,]
+
+kable(top.city, caption = "Top 3 cities by Incoming on 2012-2021")
+
+```
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE}
+year.plot  <-
+  data %>%
+  group_by("f" = X.U.FEFF.ST.Mokslo.metai) %>%
+  summarise("s" = ST.Priimtuju.skaicius)
+
+year.plot <- aggregate(year.plot[-1], by = list(year.plot$f), FUN = sum, na.rm = 1)
+colnames(year.plot) <- c("Year", "Incoming")
+
+ggplot(year.plot, aes(x = Year, y = Incoming, fill=Year))+
+  geom_bar(stat = "identity", color = "white")+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+
+```{r, warning = FALSE, message=FALSE, echo=FALSE}
+
+year.dir.plot  <-
+  data %>%
+  group_by(Incoming = ST.Priimtuju.skaicius, 
+           Year = X.U.FEFF.ST.Mokslo.metai) %>%
+  summarise(Direction = ST.Studiju.sritis)
+
+ggplot(year.dir.plot, aes(x=Year, y=Direction))+
+  geom_raster(aes(fill = Incoming), hjust=0.3, vjust=0.1, interpolate=FALSE)+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+```
+
+

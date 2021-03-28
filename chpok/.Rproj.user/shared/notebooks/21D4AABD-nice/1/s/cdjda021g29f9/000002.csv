@@ -1,0 +1,2 @@
+"0","library(knitr)"
+"0","kable(homi.r.solved[1:10, c(11, 12,13,16,17,24)], caption = ""Table 1"")"

@@ -1,0 +1,32 @@
+{
+    "id": "D946BE37",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1606998806568.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "expression": "year.state.plot",
+        "caption": "year.state.plot",
+        "totalObservations": "234",
+        "displayedObservations": "234",
+        "variables": "3",
+        "cacheKey": "D65FB0AC",
+        "object": "year.state.plot",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=year.state.plot&cache_key=D65FB0AC&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7954801838394602607,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1606998806568,
+    "read_only": false,
+    "read_only_alternatives": []
+}

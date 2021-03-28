@@ -1,0 +1,32 @@
+{
+    "id": "D16B6129",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1608365224548.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "year.dir.plot",
+        "caption": "year.dir.plot",
+        "totalObservations": 2129,
+        "displayedObservations": 2129,
+        "variables": 3,
+        "cacheKey": "92B8898F",
+        "object": "year.dir.plot",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=year.dir.plot&cache_key=92B8898F&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2407886336272,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1608365224548,
+    "read_only": false,
+    "read_only_alternatives": []
+}

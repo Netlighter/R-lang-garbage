@@ -1,0 +1,1 @@
+"0","ggplot(year.state.plot, aes(x=year, y=state))+geom_raster(aes(fill = Summary), hjust=0.3, vjust=0.1, interpolate=FALSE)"
